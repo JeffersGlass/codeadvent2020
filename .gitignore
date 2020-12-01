@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Blog-related things
+*.jpg
+*.jpeg
