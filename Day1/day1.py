@@ -50,6 +50,9 @@ def naiveFind3():
             for k in range(j, len(data)):
                 if data[i] + data[j] + data[k] == 2020:
                     success(data[i], data[j], data[k])
+                    return
+
+    print("Finished loop, no triples found that sum to 2020")
 
 
 def success(*args):
@@ -69,8 +72,8 @@ def success(*args):
 
 if __name__ == '__main__':
     #For the solution to Day 1 part 1, run either of the following two functions:
-    #naiveFind()
-    #dictFind()
+    naiveFind()
+    dictFind()
 
     #For the solution to Day 1 part 2, run the following function:
     naiveFind3()
