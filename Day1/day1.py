@@ -49,7 +49,7 @@ def naiveProduct():
         for j in range(i, len(data)):
             for k in range(j, len(data)):
                 if data[i] + data[j] + data[k] == 2020:
-                    success(i, j, k)
+                    success(data[i], data[j], data[k])
 
 
 
@@ -62,9 +62,13 @@ def success(*args):
         product *= args[i]
     print (f" sum to 2020; their product is: {product}")
 
+    #Original implemenetation of this function that accepted only two arguments:
     #print(f"Found that {first} and {second} sum to 2020; their product is {first*second}")
 
 if __name__ == '__main__':
     #For the solution to Day 1 part 1, run either of the following two functions:
     #naiveFind()
-    dictFind()
+    #dictFind()
+
+    #For the solution to Day 1 part 2, run the following function:
+    naiveProduct()
