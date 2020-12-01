@@ -37,7 +37,7 @@ def dictFind():
     print ("Finished loop, no pairs found that sum to 2020")
 
 @timer
-def naiveProduct():
+def naiveFind3():
 
     data = list()
 
@@ -73,4 +73,4 @@ if __name__ == '__main__':
     #dictFind()
 
     #For the solution to Day 1 part 2, run the following function:
-    naiveProduct()
+    naiveFind3()
