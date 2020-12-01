@@ -20,8 +20,27 @@ def naiveFind():
 
     print ("Finished loop, no pairs found that sum to 2020")
 
+@timer
+def dictFind():
+
+    seen = dict()
+
+    with open(file, 'r') as infile:
+        for line in infile:
+            num = int(line)
+            complement = 2020-num
+            if complement in seen:
+                success(num, complement)
+                return
+            seen[num] = True
+
+    print ("Finished loop, no pairs found that sum to 2020")
+
+
+
 def success(first, second):
     print(f"Found that {first} and {second} sum to 2020; their product is {first*second}")
 
 if __name__ == '__main__':
-    naiveFind()
+    #naiveFind()
+    dictFind()

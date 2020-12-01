@@ -9,7 +9,6 @@ def timer(func):
     """
     @functools.wraps(func)
     def wrapper_timer(*args, **kwargs):
-        print("start")
         start_time = time.perf_counter()
         value = func(*args, **kwargs)
         elapsed = time.perf_counter() - start_time
