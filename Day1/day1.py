@@ -1,8 +1,10 @@
-from sys import exit
+import sys
+sys.path.append("..")
+from function_timing import *
 
 file = 'input.txt'
 
-
+@timer
 def naiveFind():
     data = list()
 
@@ -14,7 +16,7 @@ def naiveFind():
         for j in range(i, len(data)):
             if data[i] + data[j] == 2020:
                 success(data[i], data[j])
-                exit()
+                return
 
     print ("Finished loop, no pairs found that sum to 2020")
 
