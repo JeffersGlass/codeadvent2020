@@ -36,11 +36,34 @@ def dictFind():
 
     print ("Finished loop, no pairs found that sum to 2020")
 
+@timer
+def naiveProduct():
+
+    data = list()
+
+    with open(file, 'r') as infile:
+        for line in infile:
+            data.append(int(line.strip('\n').strip('\r')))
+
+    for i in range(len(data)):
+        for j in range(i, len(data))
+            for k in range(j, len(data)):
+                if data[i] + data[j] + data[k] == 2020:
+                    success(i, j, k)
 
 
-def success(first, second):
-    print(f"Found that {first} and {second} sum to 2020; their product is {first*second}")
+
+def success(*args):
+    print("Found that ", end = "")
+    product = 1
+    for a in args:
+        print(f"{a},", end = "")
+        product *= a
+    print (f" sum to 2020; their product is: {product}")
+
+    #print(f"Found that {first} and {second} sum to 2020; their product is {first*second}")
 
 if __name__ == '__main__':
+    #For the solution to Day 1 part 1, run either of the following two functions:
     #naiveFind()
     dictFind()
