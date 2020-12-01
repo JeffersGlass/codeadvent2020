@@ -52,8 +52,10 @@ def naiveProduct():
                     success(data[i], data[j], data[k])
 
 
-
 def success(*args):
+    """Prints a statement to the console that the numbers given as arguments sum to 2020 and prints their product
+    """
+
     print("Found that ", end = "")
     product = 1
     for i in range(len(args)):
