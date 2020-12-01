@@ -46,7 +46,7 @@ def naiveProduct():
             data.append(int(line.strip('\n').strip('\r')))
 
     for i in range(len(data)):
-        for j in range(i, len(data))
+        for j in range(i, len(data)):
             for k in range(j, len(data)):
                 if data[i] + data[j] + data[k] == 2020:
                     success(i, j, k)
@@ -56,9 +56,10 @@ def naiveProduct():
 def success(*args):
     print("Found that ", end = "")
     product = 1
-    for a in args:
-        print(f"{a},", end = "")
-        product *= a
+    for i in range(len(args)):
+        print(f"{args[i]}", end = "")
+        if i < len(args)-1: print(" and ", end = "")
+        product *= args[i]
     print (f" sum to 2020; their product is: {product}")
 
     #print(f"Found that {first} and {second} sum to 2020; their product is {first*second}")
