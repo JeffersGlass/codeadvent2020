@@ -12,6 +12,6 @@ def timer(func):
         start_time = time.perf_counter()
         value = func(*args, **kwargs)
         elapsed = time.perf_counter() - start_time
-        print(f"Function {func.__name__!r} took {elapsed:.4f} seconds to complete.")
+        print(f"Function {func.__name__!r} took {elapsed:.6f} seconds to complete.")
         return value
     return wrapper_timer
