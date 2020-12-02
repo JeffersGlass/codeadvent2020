@@ -131,6 +131,7 @@ dmypy.json
 # Blog-related things
 *.jpg
 *.jpeg
+/images
 
 # Code Adevnt Input Data
 input.txt
