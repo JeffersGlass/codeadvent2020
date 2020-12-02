@@ -6,10 +6,14 @@ def isValidLine_Sled(line):
     lowbound, highbound = [int(x) for x in contents[0].split('-')]
     letter = contents[1].strip(":")
     password = contents[2].strip("\n")
-    return isValid(lowbound, highbound, letter, password)
+    return isValid_Sled(lowbound, highbound, letter, password)
+
+#While the problem statements/input give input with '1-indexed' values, this function takes '0-indexed' values
+def isValid_Toboggan(first, second, letter, password):
+    return (password[first] == letter) ^ (password[second] == letter)
 
 
 with open('input.txt', 'r') as infile:
     data = [line for line in infile]
 
-print ("The solution to part 1 is: " + str(len([line for line in data if isValidLine(line)])))
+print ("The solution to part 1 is: " + str(len([line for line in data if isValidLine_Sled(line)])))
