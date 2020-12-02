@@ -1,7 +1,7 @@
-def isValid(low, high, letter, password):
+def isValid_Sled(low, high, letter, password):
     return low <= password.count(letter) <= high
 
-def isValidLine(line):
+def isValidLine_Sled(line):
     contents = line.split(' ')
     lowbound, highbound = [int(x) for x in contents[0].split('-')]
     letter = contents[1].strip(":")
@@ -12,4 +12,4 @@ def isValidLine(line):
 with open('input.txt', 'r') as infile:
     data = [line for line in infile]
 
-print (len([line for line in data if isValidLine(line)]))
+print ("The solution to part 1 is: " + str(len([line for line in data if isValidLine(line)])))
