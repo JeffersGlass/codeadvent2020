@@ -1,7 +1,7 @@
 import itertools
 from math import prod
 
-with open('testinput.txt', 'r') as infile:
+with open('input.txt', 'r') as infile:
     data = [line.strip('\n') for line in infile]
 
 #Solution in one line:
