@@ -134,4 +134,4 @@ dmypy.json
 /images
 
 # Code Adevnt Input Data
-input.txt
+*input*.txt
