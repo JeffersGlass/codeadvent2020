@@ -1,4 +1,3 @@
-import itertools
 from math import prod
 
 with open('input.txt', 'r') as infile:
@@ -28,8 +27,6 @@ def getSlopeTrees(slope, over, down):
 
 testSteps = [(1,1),(3,1),(5,1),(7,1),(1,2)]
 print (f"The answer to part 2 is : {prod([getSlopeTrees(data, *t) for t in testSteps])}")
-
-
 
 #A functions that was useful in troubleshooting some list indexing issues:
 '''
