@@ -1,6 +1,4 @@
 fields = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
-hexChars = 'abcdef0123456789'
-eyeColors = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']
 
 with open ('input.txt', 'r') as infile:
     everyLine = ''.join([line for line in infile])
@@ -9,6 +7,9 @@ passports = [p.replace('\n',' ') for p in everyLine.split('\n\n')]
 print(f"Solution to part 1 is: {len([p for p in passports if all(f in p for f in fields)])}")
 
 #Part 2:
+
+hexChars = 'abcdef0123456789'
+eyeColors = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']
 
 def isInt(s):
     try:
