@@ -36,8 +36,7 @@ def prettyPrintPassport(passport):
     for k in passport:
         print(f"{k}:\t{passport[k]}")
 
-def ppp(passport):
-    prettyPrintPassport(passport)
+ppp = prettyPrintPassport
 
 with open('input.txt', 'r') as infile:
     everyLine = ''.join([line for line in infile])
@@ -45,6 +44,7 @@ with open('input.txt', 'r') as infile:
 passports = [p.replace('\n',' ') for p in everyLine.split('\n\n')]
 passports = [p.split(' ') for p in passports]
 splitList = list()
+
 #Generate a list of dictionaries; each dictionary is a single passport with keys being field names and values being field values
 for p in passports:
     tempDict = dict()
