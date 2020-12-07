@@ -20,11 +20,6 @@ with open('input.txt', 'r') as infile:
             else:
                 bagList[color].add(container)
 
-        #print(f"{container}---{contains}")
-
-
-'''
-def findAllContainers(firstBag):
     examined = set()
     toExamine = set(bagList[firstBag])
     found = set()
@@ -55,29 +50,20 @@ def findAllContainers(firstBag):
 
         toExamine = found.copy()
         found = set()
-        '''
 
-#@sayFunction
+
+@sayFunction
 def findParentColors(color):
     if color not in bagList:
         return set()
     else:
-        #print([findParentColors(c) for c in bagList[color]])
         retVal = bagList[color]
         return retVal.union(*[findParentColors(c) for c in bagList[color]])
     
 
 
 if __name__ == '__main__':
-    #line = "wavy bronze bags contain 4 muted aqua bags."
-    #container, contains = line.split(' bags contain ')
-    #print(f"{container}, {contains}")
-    ##contains = [c.strip('\n').strip('.').strip(' ').strip(' bags').strip(' bag')[2:] for c in contains.split(',') if 'no other bags' not in c]
-    #contains = [c.strip('\n. ').replace(' bags', '').replace(' bag', '')[2:] for c in contains.split(',') if 'no other bags' not in c]
-    #print(f"{container}, {contains}")
 
-
-    #print(bagList)
     f = findParentColors('shiny gold')
     print(f)
     print(f"Solution to part 1: {len(f)} \n")
