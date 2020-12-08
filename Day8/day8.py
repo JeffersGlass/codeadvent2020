@@ -13,7 +13,7 @@ def accumulatorValueBeforeLoop(data):
 
     while head not in seenInstructions:
         seenInstructions.add(head)
-        print(f"Processing instruction @ {head}: {data[head][0]},{data[head][1]}")
+        #print(f"Processing instruction @ {head}: {data[head][0]},{data[head][1]}")
         if data[head][0] == 'nop':
             head += 1
         elif data[head][0] == 'acc':
@@ -24,5 +24,5 @@ def accumulatorValueBeforeLoop(data):
 
     return accumulator
 
-print(accumulatorValueBeforeLoop(inputData))
+print(f"Solution to part 1 is: {accumulatorValueBeforeLoop(inputData)}")
 
