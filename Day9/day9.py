@@ -31,4 +31,3 @@ if __name__ == '__main__':
 
     sumList = findListSumTo(invalidNum, data)
     print(f"Solution to part 2 is:  {max(sumList) + min(sumList)}")
-
