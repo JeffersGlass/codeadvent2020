@@ -5,7 +5,7 @@ seats = dict()
 row = 0
 column = 0
 
-with open('inputtest.txt', 'r') as infile:
+with open('input.txt', 'r') as infile:
     for line in infile:
         column = 0
         for seat in line:
@@ -47,13 +47,11 @@ def iterate(layout):
 def seatsFilled(layout):
     return sum([(1 if layout[row, column] == '#' else 0) for row in range(layout['numRows']) for column in range(layout['numCols'])])
 
-printSeatingLayout(seats)
-for _ in range(8):
+
+if __name__ == '__main__':
     oldLayout = deepcopy(seats)
     seats = iterate(seats)
-    printSeatingLayout(seats)
-    print(oldLayout == seats)
-    print(seatsFilled(seats))
-    print("")
-
-                
+    while(oldLayout != seats):
+        oldLayout = deepcopy(seats)
+        seats = iterate(seats)
+    print(f"Solution to part 1 is: {seatsFilled(seats)}")
