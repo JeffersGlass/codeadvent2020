@@ -20,16 +20,26 @@ def iterate(layout, neighborfunc, tolerance):
                     if neighbors == 0: newLayout[(row, column)] = '#'
                     else: newLayout[(row, column)] = 'L'
                 elif currentSeat == '#':
-                    if neighbors >= tolerance+1: newLayout[(row, column)] = 'L'
+                    if neighbors >= tolerance: newLayout[(row, column)] = 'L'
                     else: newLayout[(row, column)] = '#'
     
     return newLayout
+
+def iterateUntilStable(layout, neighborfunc, tolerance):
+    oldLayout = deepcopy(layout)
+    seats = iterate(layout, neighborfunc, tolerance)
+
+    while(oldLayout != seats):
+        oldLayout = deepcopy(seats)
+        seats = iterate(seats, neighborfunc, tolerance)
+    return seats
 
 def getImmediateNeighbors(layout, row, column):
     neighbors = 0
     for i in range(-1, 2):
         for j in range(-1, 2):
-            neighbors += (1 if layout.get((row+i, column+j), '.') == '#' else 0)
+            if not(i == 0 and j == 0):
+                neighbors += (1 if layout.get((row+i, column+j), '.') == '#' else 0)
     return neighbors
 
 def getVisibleNeighbors(layout, row, column):
@@ -44,7 +54,6 @@ def getVisibleNeighbors(layout, row, column):
                     neighbors += 1
     return neighbors
 
-
 def seatsFilled(layout):
     return sum([(1 if layout[row, column] == '#' else 0) for row in range(layout['numRows']) for column in range(layout['numCols'])])
 
@@ -54,7 +63,7 @@ if __name__ == '__main__':
     row = 0
     column = 0
 
-    with open('inputtest.txt', 'r') as infile:
+    with open('input.txt', 'r') as infile:
         for line in infile:
             column = 0
             for seat in line:
@@ -66,19 +75,10 @@ if __name__ == '__main__':
         inputSeats['numCols'] = column
     
     #Part 1:
-    
     seats = deepcopy(inputSeats)
-    
-    tolerance = 4
-    oldLayout = deepcopy(seats)
-    seats = iterate(seats, getImmediateNeighbors, tolerance)
-
-    while(oldLayout != seats):
-        oldLayout = deepcopy(seats)
-        seats = iterate(seats, getImmediateNeighbors, tolerance)
-    print(f"Solution to part 1 is: {seatsFilled(seats)}")
+    print(f"Solution to part 1 is: {seatsFilled(iterateUntilStable(seats, getImmediateNeighbors, 4))}")
     
 
     #Part 2
     seats = deepcopy(inputSeats)
-    #print(getVisibleNeighbors(seats, 2, 5))
+    print(f"Solution to part 2 is: {seatsFilled(iterateUntilStable(seats, getVisibleNeighbors, 5))}")
