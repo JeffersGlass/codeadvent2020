@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 seats = dict()
 
 row = 0
@@ -19,4 +21,39 @@ def printSeatingLayout(layout):
         for column in range(layout['numCols']):
             print(layout[(row, column)], end = "")
         print("")
+
+def iterate(layout):
+    newLayout = dict()
+    newLayout['numRows'], newLayout['numCols'] = layout['numRows'], layout['numCols']
+    for row in range(layout['numRows']):
+        for column in range(layout['numCols']):
+            currentSeat = layout[(row, column)]
+            if currentSeat == '.':
+                newLayout[(row, column)] = '.'
+            else:
+                neighbors = 0
+                for i in range(-1, 2):
+                    for j in range(-1, 2):
+                        neighbors += (1 if layout.get((row+i, column+j), '.') == '#' else 0)
+                if currentSeat == 'L':
+                    if neighbors == 0: newLayout[(row, column)] = '#'
+                    else: newLayout[(row, column)] = 'L'
+                elif currentSeat == '#':
+                    if neighbors >= 4+1: newLayout[(row, column)] = 'L'
+                    else: newLayout[(row, column)] = '#'
     
+    return newLayout
+
+def seatsFilled(layout):
+    return sum([(1 if layout[row, column] == '#' else 0) for row in range(layout['numRows']) for column in range(layout['numCols'])])
+
+printSeatingLayout(seats)
+for _ in range(8):
+    oldLayout = deepcopy(seats)
+    seats = iterate(seats)
+    printSeatingLayout(seats)
+    print(oldLayout == seats)
+    print(seatsFilled(seats))
+    print("")
+
+                
