@@ -1,4 +1,7 @@
 from copy import deepcopy
+import sys
+sys.path.append("..")
+from function_timing import *
 
 def printSeatingLayout(layout):
     for row in range(layout['numRows']):
@@ -25,6 +28,7 @@ def iterate(layout, neighborfunc, tolerance):
     
     return newLayout
 
+@timer
 def iterateUntilStable(layout, neighborfunc, tolerance):
     oldLayout = deepcopy(layout)
     seats = iterate(layout, neighborfunc, tolerance)
