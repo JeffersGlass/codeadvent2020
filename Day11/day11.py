@@ -22,7 +22,7 @@ def printSeatingLayout(layout):
             print(layout[(row, column)], end = "")
         print("")
 
-def iterate(layout):
+def iterate(layout, neighborfunc):
     newLayout = dict()
     newLayout['numRows'], newLayout['numCols'] = layout['numRows'], layout['numCols']
     for row in range(layout['numRows']):
@@ -31,7 +31,7 @@ def iterate(layout):
             if currentSeat == '.':
                 newLayout[(row, column)] = '.'
             else:
-                neighbors = getImmediateNeighbors(layout, row, column)
+                neighbors = neighborfunc(layout, row, column)
                 if currentSeat == 'L':
                     if neighbors == 0: newLayout[(row, column)] = '#'
                     else: newLayout[(row, column)] = 'L'
@@ -52,11 +52,11 @@ def getImmediateNeighbors(layout, row, column):
 def seatsFilled(layout):
     return sum([(1 if layout[row, column] == '#' else 0) for row in range(layout['numRows']) for column in range(layout['numCols'])])
 
-
 if __name__ == '__main__':
     oldLayout = deepcopy(seats)
-    seats = iterate(seats)
+
+    seats = iterate(seats, getImmediateNeighbors)
     while(oldLayout != seats):
         oldLayout = deepcopy(seats)
-        seats = iterate(seats)
+        seats = iterate(seats, getImmediateNeighbors)
     print(f"Solution to part 1 is: {seatsFilled(seats)}")
