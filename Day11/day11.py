@@ -6,7 +6,7 @@ def printSeatingLayout(layout):
             print(layout[(row, column)], end = "")
         print("")
 
-def iterate(layout, neighborfunc):
+def iterate(layout, neighborfunc, tolerance):
     newLayout = dict()
     newLayout['numRows'], newLayout['numCols'] = layout['numRows'], layout['numCols']
     for row in range(layout['numRows']):
@@ -20,7 +20,7 @@ def iterate(layout, neighborfunc):
                     if neighbors == 0: newLayout[(row, column)] = '#'
                     else: newLayout[(row, column)] = 'L'
                 elif currentSeat == '#':
-                    if neighbors >= 4+1: newLayout[(row, column)] = 'L'
+                    if neighbors >= tolerance+1: newLayout[(row, column)] = 'L'
                     else: newLayout[(row, column)] = '#'
     
     return newLayout
@@ -32,31 +32,53 @@ def getImmediateNeighbors(layout, row, column):
             neighbors += (1 if layout.get((row+i, column+j), '.') == '#' else 0)
     return neighbors
 
+def getVisibleNeighbors(layout, row, column):
+    neighbors = 0
+    for i in range(-1, 2):
+        for j in range(-1, 2):
+            if not (i==0 and j==0):
+                pos = (row+i, column+j)
+                while layout.get(pos, 'L') == '.':
+                    pos = (pos[0]+i, pos[1]+j)
+                if layout.get(pos) == '#':
+                    neighbors += 1
+    return neighbors
+
 
 def seatsFilled(layout):
     return sum([(1 if layout[row, column] == '#' else 0) for row in range(layout['numRows']) for column in range(layout['numCols'])])
 
 if __name__ == '__main__':
-    seats = dict()
+    inputSeats = dict()
 
     row = 0
     column = 0
 
-    with open('input.txt', 'r') as infile:
+    with open('inputtest.txt', 'r') as infile:
         for line in infile:
             column = 0
             for seat in line:
-                seats[(row, column)] = line[column]
+                inputSeats[(row, column)] = line[column]
                 column +=1
             row += 1
 
-        seats['numRows'] = row
-        seats['numCols'] = column
+        inputSeats['numRows'] = row
+        inputSeats['numCols'] = column
     
+    #Part 1:
+    
+    seats = deepcopy(inputSeats)
+    
+    tolerance = 4
     oldLayout = deepcopy(seats)
-    seats = iterate(seats, getImmediateNeighbors)
-    
+    seats = iterate(seats, getImmediateNeighbors, tolerance)
+
     while(oldLayout != seats):
         oldLayout = deepcopy(seats)
-        seats = iterate(seats, getImmediateNeighbors)
+        seats = iterate(seats, getImmediateNeighbors, tolerance)
     print(f"Solution to part 1 is: {seatsFilled(seats)}")
+    
+
+    #Part 2
+    seats = deepcopy(inputSeats)
+    #print(getVisibleNeighbors(seats, 2, 5))
