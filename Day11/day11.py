@@ -31,10 +31,7 @@ def iterate(layout):
             if currentSeat == '.':
                 newLayout[(row, column)] = '.'
             else:
-                neighbors = 0
-                for i in range(-1, 2):
-                    for j in range(-1, 2):
-                        neighbors += (1 if layout.get((row+i, column+j), '.') == '#' else 0)
+                neighbors = getImmediateNeighbors(layout, row, column)
                 if currentSeat == 'L':
                     if neighbors == 0: newLayout[(row, column)] = '#'
                     else: newLayout[(row, column)] = 'L'
@@ -43,6 +40,14 @@ def iterate(layout):
                     else: newLayout[(row, column)] = '#'
     
     return newLayout
+
+def getImmediateNeighbors(layout, row, column):
+    neighbors = 0
+    for i in range(-1, 2):
+        for j in range(-1, 2):
+            neighbors += (1 if layout.get((row+i, column+j), '.') == '#' else 0)
+    return neighbors
+
 
 def seatsFilled(layout):
     return sum([(1 if layout[row, column] == '#' else 0) for row in range(layout['numRows']) for column in range(layout['numCols'])])
