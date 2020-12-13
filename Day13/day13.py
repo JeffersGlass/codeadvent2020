@@ -22,8 +22,6 @@ with open('input.txt', 'r') as infile:
 
 busses = [{'pos':b[0], 'value':int(b[1])} for b in busses]
 busses = sorted(busses, key=lambda x: x['pos'])
-print(busses)
-
 
 #For a given prime A, a second prime P, and a residue R,
 #Find the num N such that 0 <= N < P and (N*A)+R === 0 (mod P)
@@ -36,18 +34,16 @@ def findLeastSuccess(given, prime, residue):
     return -1
 
 number = findLeastSuccess(busses[0]['value'], busses[1]['value'], busses[1]['pos'])
-print(number)
-#All solutions will be of the form number + added
 addend = lcm(busses[0]['value'],busses[1]['value'])
-print(addend)
 
 for b in busses[2:]:
-    print(f"Adding {b['value']} at position {b['pos']} to the mix makes our value ", end ="")
+    #print(f"Adding {b['value']} at position {b['pos']} to the mix makes our value ", end ="")
     while (number+b['pos']) % b['value'] != 0:
         number += addend
     addend = lcm(addend, b['value'])
-    print(f"{number} and our addend {addend}")
+    #print(f"{number} and our addend {addend}")
 
+print(f"Solution to part 2: {number}")
 
 
 
