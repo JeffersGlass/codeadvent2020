@@ -30,15 +30,35 @@ def evalLeftToRight(equation):
     
     return evalLeftToRight(str(result) + equation[s.span(0)[1]:])
 
-def doStep(equation):
+#Evaluate an equation string with no parentheses a la part 2, where multiplication takes precedence over addition:
+def evalWithPrecedence(equation):
+    logging.debug(f"Evaluating-with-precedence the equation {equation}")
+    multPattern = re.compile(r'(\d+)\s*[*]+\s*(\d+)')
+    s = re.search(multPattern, equation)
+    if s == None:
+        logging.debug(f"No multiplications found in {equation}, moving on to addition")
+        addPattern = re.compile(r'(\d+)\s*[\+]+\s*(\d+)')
+        s = re.search(addPattern, equation)
+        if s == None:
+            logging.debug(f"No additions or multiplications found in {equation}")
+            return int(equation.replace("(",'').replace(')',''))
+        first, second = s.group(1, 2)
+        result = int(first) + int(second)
+        return evalWithPrecedence(equation[:s.span(0)[0]:] + str(result) + equation[s.span(0)[1]:])
+    else:
+        first, second = s.group(1,2)
+        result = int(first) * int(second)
+        return evalWithPrecedence(equation[:s.span(0)[0]:] + str(result) + equation[s.span(0)[1]:])
+
+def doStep(equation, evalFunc):
     logging.debug(f"Running one step on equation {equation}")
     inner = findInnerParens(equation)
     if inner == None:
         logging.debug(f"Equation contains smaller parentheticals, evaluating left to right")
-        return evalLeftToRight(equation)
+        return evalFunc(equation)
     else:
         innerExpression = inner.group(0)[1:-1]
-        innerValue = evalLeftToRight(innerExpression)
+        innerValue = evalFunc(innerExpression)
         logging.debug(f"Found smallest parenthetical to be {innerExpression}, which has value {innerValue}")
         
         innerSpan = inner.span()
@@ -46,17 +66,21 @@ def doStep(equation):
         logging.debug(f"New equation to be evaluated is {newEquation}")
         return newEquation
 
-def resolve(equation):
+def resolve(equation, evalFunc):
     while not isInt(equation):
-        equation = doStep(equation)
+        equation = doStep(equation, evalFunc)
 
     return equation
        
 
 if __name__ == '__main__':
-    logging.basicConfig(level = logging.INFO)
+    logging.basicConfig(level = logging.DEBUG)
 
-    with open('input.txt', 'r') as infile:
+    with open('inputtest.txt', 'r') as infile:
         data = [line.strip() for line in infile]
         
-    print(f"Solution to part 1 is: {sum([resolve(line) for line in data])}")
+    #print(f"Solution to part 1 is: {sum([resolve(line, evalLeftToRight) for line in data])}")
+
+    line = data[0]
+    print(line)
+    print(resolve(line, evalWithPrecedence))
