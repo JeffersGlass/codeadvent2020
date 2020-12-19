@@ -29,6 +29,8 @@ def evalRule(rule):
 
 if __name__ == '__main__':
 
+    #Part 1:
+
     logging.basicConfig(level=logging.INFO)
 
     with open('input.txt', 'r') as infile:
@@ -52,7 +54,7 @@ if __name__ == '__main__':
             if r not in knownRules and canEvaluate(rules[r], knownRules):
                 rules[r] = evalRule(r)
                 knownRules.add(r)
-                #logging.info(f"Rule {r} is now: {rules[r]}")
+                logging.info(f"Rule {r} solved; now know {len(knownRules)} rules of {len(rules)}")
 
     print(f"Solution to part 1: {len([mes for mes in messageList if mes in rules[0]])}")
 
